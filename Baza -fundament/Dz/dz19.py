@@ -1,11 +1,10 @@
 from aiogram import Bot, Dispatcher, executor, types
-
 from decouple import config
 
 bot = Bot(config('5579061130:AAEiIBroucLkh0b6xarE52m81zH9XsyA_Hk'))
 dp = Dispatcher(bot)
 
-# @ -  це декоратор, який додає функціонал до функції
+# @ -  це декоратор, який додає функціонал до функціїpip install python-decouple
 # async - це ключове слово, яке вказує, що функція є асинхронною (працює в фоновому режимі)
 # await - це ключове слово, яке вказує, що потрібно чекати на виконання функції
 @dp.message_handler(commands=['start'])
