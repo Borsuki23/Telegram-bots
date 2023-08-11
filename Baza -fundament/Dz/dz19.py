@@ -1,28 +1,33 @@
-from aiogram import Bot, Dispatcher, executor, types
-from decouple import config
+import logging
 
-bot = Bot(config('5579061130:AAEiIBroucLkh0b6xarE52m81zH9XsyA_Hk'))
+from aiogram import Bot, Dispatcher, executor, types
+
+API_TOKEN = '5579061130:AAEiIBroucLkh0b6xarE52m81zH9XsyA_Hk'
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+
+# Initialize bot and dispatcher
+bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
-# @ -  це декоратор, який додає функціонал до функціїpip install python-decouple
-# async - це ключове слово, яке вказує, що функція є асинхронною (працює в фоновому режимі)
-# await - це ключове слово, яке вказує, що потрібно чекати на виконання функції
-@dp.message_handler(commands=['start'])
+
+@dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
-    await message.answer("Привіт, я допоможу тобі порахувати А + Б = ?")
-                        
-@dp.message_handler(commands=['help'])
-async def command_help(message: types.Message):
-    await message.answer("Напиши мені: 2 + 2")
-    
+    """
+    This handler will be called when user sends `/start` or `/help` command
+    """
+    await message.reply("Hi!\nI'm EchoBot!\nPowered by aiogram.")
+
+
+
 @dp.message_handler()
 async def echo(message: types.Message):
-    try:
-        a, b = message.text.split('+')
-        await message.answer(int(a) + int(b))
-    except:
-        await message.answer("Напиши мені: 2 + 2")
-    
-    
+    # old style:
+    # await bot.send_message(message.chat.id, message.text)
+
+    await message.answer(message.text*10)
+
+
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
