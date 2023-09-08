@@ -5,9 +5,6 @@ from decouple import config
 bot = Bot(config('5579061130:AAEiIBroucLkh0b6xarE52m81zH9XsyA_Hk'))
 dp = Dispatcher(bot)
 
-# @ -  це декоратор, який додає функціонал до функції
-# async - це ключове слово, яке вказує, що функція є асинхронною (працює в фоновому режимі)
-# await - це ключове слово, яке вказує, що потрібно чекати на виконання функції
 @dp.message_handler(commands=['start'])
 async def send_welcome(message: types.Message):
     await message.answer("Привіт, я допоможу тобі порахувати А + Б = ?")
