@@ -66,10 +66,23 @@ transactions = {
         },
     }
 }
-transactions.update("1")
+
+new_transaction_data = {
+    "id": "1",
+    "date": "2023-08-18 15:30:00",
+    "amount": 150.75,
+    "status": "новий_статус",
+    "customer": {
+        "name": "John Smith",
+        "email": "john@example.com",
+        "phone": "123-456-7890"
+    }
+}
+
+transactions['1'].update(new_transaction_data)
 print(transactions)
-for key in transactions:
-    print(key, transactions[key])
+for key, transaction in transactions.items():
+    print(key, transaction)
 transactions['3']['status'] = 'completed'
 del transactions['3']
 for transaction in transactions.values():
@@ -78,11 +91,12 @@ all_customers = {}
 for transaction in transactions.values():
     if transaction['customer']['name'] not in all_customers:
         all_customers[transaction['customer']['name']] = []
-    all_customers[transaction['customer']['name']].append(
-        transaction['id'])
+    all_customers[transaction['customer']['name']].append(transaction['id'])
 print(all_customers)
+
 for customer, transactions in all_customers.items():
     print(customer, transactions)
+
 
 
 
